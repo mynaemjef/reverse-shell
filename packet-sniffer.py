@@ -77,7 +77,8 @@ while counter < 1000:
 	
 	counter = counter + 1
 
-# you have to set netcat up to listen to the packets sent by netcat on client otherwise there won't be a connection and you won't see data
+	
+# brainfarts down here
 """
 	try:
 		if type(data) == bytes:
@@ -85,8 +86,8 @@ while counter < 1000:
 		print(data)
 	except:
 		pass
-"""
-"""
+
+
 counter = 0
 while counter < 100:
 	pkt = skt.recvfrom(2084)
