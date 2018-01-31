@@ -51,11 +51,7 @@ def Request(lHost, lPort, rHost, rPort):
 			print("[-] Failure : No answer... retrying")
 	
 	try:
-		if nbattempts == 0: # 0 attempt left so failed to establish the connection with the backdoor 
-			# maybe because there is no backdoor on the given host 
-			# or the backdoor couldn't open the requested remote port
-			# or a proxy firewall the wakeup packets 
-			# or too many unwanted connection on the given local port... that would be quite worring...
+		if nbattempts == 0: 
 			raise socket.timeout() 
 		conn.sendall(b"passphrase2")
 		passphrase = conn.recv(1024)
