@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import socket, os, getpass, subprocess, platform, sys
 from struct import *
